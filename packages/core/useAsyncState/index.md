@@ -19,3 +19,30 @@ const { state, isReady, isLoading } = useAsyncState(
   { id: null },
 )
 ```
+
+你也可以手动触发异步操作，这在你希望控制异步函数何时执行时非常有用。
+
+```vue
+<script setup lang="ts">
+import { useAsyncState } from '@vueuse/core'
+
+const { state, execute, executeImmediate } = useAsyncState(action, '', { immediate: false })
+
+async function action(event) {
+  await new Promise(resolve => setTimeout(resolve, 500))
+  return `${event.target.textContent} clicked!`
+}
+</script>
+
+<template>
+  <p>State: {{ state }}</p>
+
+  <button class="button" @click="executeImmediate">
+    Execute now
+  </button>
+
+  <button class="ml-2 button" @click="event => execute(500, event.target)">
+    Execute with delay
+  </button>
+</template>
+```

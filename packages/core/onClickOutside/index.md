@@ -44,6 +44,19 @@ useEventListener('pointermove', (e) => {
 })
 ```
 
+如果你想忽略某些元素，可以使用 ignore 选项。将要忽略的元素作为 Ref 数组或 CSS 选择器数组传入即可。
+
+```ts
+const ignoreElRef = useTemplateRef<HTMLElement>('ignoreEl')
+const ignoreElSelector = '.ignore-el'
+
+onClickOutside(
+  target,
+  event => console.log(event),
+  { ignore: [ignoreElRef, ignoreElSelector] },
+)
+```
+
 ## 组件用法
 
 ```vue
